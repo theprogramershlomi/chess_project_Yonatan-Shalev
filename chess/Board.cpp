@@ -58,15 +58,30 @@ void Board::Move(std::string src, std::string dst)
 	delete[] dst_index;
 }
 
+void Board::Move(char** board, std::string src, std::string dst)
+{
+	int* src_index = Convert_To_Index(src);
+	int* dst_index = Convert_To_Index(dst);
+
+	board[dst_index[0]][dst_index[1]] = board[src_index[0]][src_index[1]];
+
+	delete[] src_index;
+	delete[] dst_index;
+}
+
 short Board::Is_Legal(std::string src, std::string dst)
 {
 	// this can be an error or a succes
 	// depending on the src and dst
 	short return_code = 0;
+
 	int* src_index = Convert_To_Index(src);
 	int* dst_index = Convert_To_Index(dst);
+
 	char src_ch = _board[src_index[0]][src_index[1]];
 	char dst_ch = _board[dst_index[0]][dst_index[1]];
+
+
 
 
 	if (src == dst)
@@ -86,52 +101,37 @@ short Board::Is_Legal(std::string src, std::string dst)
 	if (!return_code && !(isalpha(src_ch) && (islower(src_ch) == !_isWhiteTurn)))
 	{
 		// src doesn't have same colored piece
-		return_code = 3;
+		return_code = 2;
 	}
 
-	// !return_code mean that there are no errors.
 	if (!return_code)
 	{
-
-		switch (tolower(src_ch))
+		if (!Global_Is_Legal_Move(_board, src_index, dst_index, _isWhiteTurn))
 		{
-		case 'p':
-			if (not Pawn::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
-			{
-				return_code = 6;
-			}
-			break;
-		case 'n':// n = knight because "king" took the 'k'
-			if (not Knight::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
-			{
-				return_code = 6;
-			}
-			break;
-		case 'b':
-			if (not Bishop::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
-			{
-				return_code = 6;
-			}
-			break;
-		case 'r':
-			if (not Rook::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
-			{
-				return_code = 6;
-			}
-			break;
-		case 'q':
-			if (not Queen::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
-			{
-				return_code = 6;
-			}
-			break;
-		case 'k':
-			if (not King::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
-			{
-				return_code = 6;
-			}
-			break;
+			return_code = 6;
 		}
+	}
+
+	// checks if the move will create check on the king
+	if (!return_code && !King::Is_king_safe(_board, src_index, dst_index, _isWhiteTurn))
+	{
+		// move will create check no king.
+		// illegal move.
+		return_code = 4;
+	}
+
+	// checks if the move will create check on the other king
+	if (!return_code && !King::Is_king_safe(_board, src_index, dst_index, !_isWhiteTurn))
+	{
+		// move will check the other king
+		// ok move
+		return_code = 1;
+	}
+
+	if (!return_code && dst_ch == 'k' || dst_ch == 'K')
+	{
+		// check mate!!!
+		return_code = 8;
 	}
 
 
@@ -146,4 +146,57 @@ int* Board::Convert_To_Index(std::string pos)
 	index[0] = (pos[0] - 97);
 	index[1] = (pos[1] - 49);
 	return index;
+}
+
+bool Board::Global_Is_Legal_Move(char** board, int* src_index, int* dst_index, bool isWhiteTurn)
+{
+	bool is_legal = true;
+
+	// board [src_index[0]] [src_index[1]]
+	// this is the char of the piece
+	switch (tolower(board [src_index[0]] [ src_index[1]]))
+	{
+	case 'p':
+		if (not Pawn::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
+		{
+			is_legal = false;
+		}
+		break;
+	case 'n':// n = knight because "king" took the 'k'
+		if (not Knight::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
+		{
+			is_legal = false;
+		}
+		break;
+	case 'b':
+		if (not Bishop::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
+		{
+			is_legal = false;
+		}
+		break;
+	case 'r':
+		if (not Rook::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
+		{
+			is_legal = false;
+		}
+		break;
+	case 'q':
+		if (not Queen::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
+		{
+			is_legal = false;
+		}
+		break;
+	case 'k':
+		/*
+		if (not King::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
+		{
+			is_legal = false;
+		}
+		break;
+		*/
+		break;
+
+	}
+
+	return is_legal;
 }

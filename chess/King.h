@@ -1,5 +1,6 @@
 #pragma once
 #include "Board.h"
+#define BORDERS 8
 
 class King
 {

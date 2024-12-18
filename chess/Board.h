@@ -14,7 +14,11 @@ public:
 	void Initialize_board();
 
 	void Move(std::string src, std::string dst);
+	static void Move(char** board, std::string src, std::string dst);
+
+	static int* Convert_To_Index(std::string pos);
+
 	short Is_Legal(std::string src, std::string dst);
-	int* Convert_To_Index(std::string pos);
+	bool Global_Is_Legal_Move(char** board, int* src, int* dst, bool isWhiteTurn);
 };
 
