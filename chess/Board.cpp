@@ -8,29 +8,13 @@
 #include "Queen.h"
 #include "King.h"
 
-Board::Board(char** board, bool isWhiteTurn)
-{
-	Initialize_board();
-
-	memcpy(_board, board, 64);
-	_isWhiteTurn = isWhiteTurn;
-}
-
-Board::Board(char* board, bool isWhiteTurn)
-{
-	Initialize_board();
-
-	memcpy(_board, board, 64);
-	_isWhiteTurn = isWhiteTurn;
-}
-
 Board::Board(std::string board, bool isWhiteTurn)
 {
 	Initialize_board();
 
 	for (int i = 0; i < 64; i++)
 	{
-		_board[i / 8][i % 8] = board[i];
+		_board[7 - i / 8][i % 8] = board[i];
 	}
 	_isWhiteTurn = isWhiteTurn;
 }
@@ -53,20 +37,15 @@ void Board::Move(std::string src, std::string dst)
 	int* dst_index = Convert_To_Index(dst);
 
 	_board[dst_index[0]][dst_index[1]] = _board[src_index[0]][src_index[1]];
+	_isWhiteTurn = !_isWhiteTurn;
 
 	delete[] src_index;
 	delete[] dst_index;
 }
 
-void Board::Move(char** board, std::string src, std::string dst)
+void Board::Move(char** board, int* src, int* dst)
 {
-	int* src_index = Convert_To_Index(src);
-	int* dst_index = Convert_To_Index(dst);
-
-	board[dst_index[0]][dst_index[1]] = board[src_index[0]][src_index[1]];
-
-	delete[] src_index;
-	delete[] dst_index;
+	board[dst[0]][dst[1]] = board[src[0]][src[1]];
 }
 
 short Board::Is_Legal(std::string src, std::string dst)
@@ -78,8 +57,8 @@ short Board::Is_Legal(std::string src, std::string dst)
 	int* src_index = Convert_To_Index(src);
 	int* dst_index = Convert_To_Index(dst);
 
-	char src_ch = _board[src_index[0]][src_index[1]];
-	char dst_ch = _board[dst_index[0]][dst_index[1]];
+	char src_ch = _board [src_index[0]] [src_index[1]];
+	char dst_ch = _board [dst_index[0]] [dst_index[1]];
 
 
 
@@ -97,7 +76,7 @@ short Board::Is_Legal(std::string src, std::string dst)
 		return_code = 3;
 	}
 
-	//checks if dst has same colored piece
+	//checks if src has same colored piece
 	if (!return_code && !(isalpha(src_ch) && (islower(src_ch) == !_isWhiteTurn)))
 	{
 		// src doesn't have same colored piece
@@ -128,7 +107,7 @@ short Board::Is_Legal(std::string src, std::string dst)
 		return_code = 1;
 	}
 
-	if (!return_code && dst_ch == 'k' || dst_ch == 'K')
+	if (!return_code && (dst_ch == 'k' || dst_ch == 'K'))
 	{
 		// check mate!!!
 		return_code = 8;
@@ -143,8 +122,8 @@ short Board::Is_Legal(std::string src, std::string dst)
 int* Board::Convert_To_Index(std::string pos)
 {
 	int* index = new int[2];
-	index[0] = (pos[0] - 97);
-	index[1] = (pos[1] - 49);
+	index[0] = (pos[1] - 49);
+	index[1] = (pos[0] - 97);
 	return index;
 }
 
@@ -157,38 +136,38 @@ bool Board::Global_Is_Legal_Move(char** board, int* src_index, int* dst_index, b
 	switch (tolower(board [src_index[0]] [ src_index[1]]))
 	{
 	case 'p':
-		if (not Pawn::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
+		if (not Pawn::Is_legal_move(board, src_index, dst_index, isWhiteTurn))
 		{
 			is_legal = false;
 		}
 		break;
 	case 'n':// n = knight because "king" took the 'k'
-		if (not Knight::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
+		if (not Knight::Is_legal_move(board, src_index, dst_index, isWhiteTurn))
 		{
 			is_legal = false;
 		}
 		break;
 	case 'b':
-		if (not Bishop::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
+		if (not Bishop::Is_legal_move(board, src_index, dst_index, isWhiteTurn))
 		{
 			is_legal = false;
 		}
 		break;
 	case 'r':
-		if (not Rook::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
+		if (not Rook::Is_legal_move(board, src_index, dst_index, isWhiteTurn))
 		{
 			is_legal = false;
 		}
 		break;
 	case 'q':
-		if (not Queen::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
+		if (not Queen::Is_legal_move(board, src_index, dst_index, isWhiteTurn))
 		{
 			is_legal = false;
 		}
 		break;
 	case 'k':
 		/*
-		if (not King::Is_legal_move(_board, src_index, dst_index, _isWhiteTurn))
+		if (not King::Is_legal_move(board, src_index, dst_index, isWhiteTurn))
 		{
 			is_legal = false;
 		}

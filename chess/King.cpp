@@ -1,13 +1,16 @@
 #include "King.h"
 bool King::Is_legal_move(char** board, int* src, int* dst, bool isWhiteTurn)
 {
-	return false;
+
+	return (src[0] - dst[0] >= -1 && src[0] - dst[0] <= 1) && (src[1] - dst[1] >= -1 && src[1] - dst[1] <= 1);
 }
 
 bool King::Is_king_safe(char** board, int* src, int* dst, bool isWhite)
 {
+	int* place = new int[2];
+
 	char tmp = board[dst[0]][dst[1]];
-	Move(Board::Move(src, dst));
+	Board::Move(board, src, dst);
 	int  row = 0 , col = 0, changeByRow = 0, changeByCol = 0,row2 = 0, col2 = 0;
 	for (row = src[0]-1; row < BORDERS;row++) {
 		for (col = src[1] - 1; col < BORDERS; col++) {
@@ -17,8 +20,10 @@ bool King::Is_king_safe(char** board, int* src, int* dst, bool isWhite)
 			while (row2 < BORDERS && col2 < BORDERS && (changeByRow!=0 || changeByCol!=0)) {
 				//
 				if ((isupper(board[row2][col2])&&!isWhite) || (islower(board[row2][col2])&& isWhite)) {
-					if (Global_is_leagal_move(board,row2,col2,src[0],dst[0])) {
-						return true;
+					place[0] = row2;
+					place[1] = col2;
+					if (Board::Global_Is_Legal_Move(board,place, src, isWhite)) {
+						return false;
 					}
 				}
 				else if ((isupper(board[row2][col2]) && isWhite) || (islower(board[row2][col2]) && !isWhite))
@@ -29,7 +34,9 @@ bool King::Is_king_safe(char** board, int* src, int* dst, bool isWhite)
 			}
 		}
 	}
-	Move(Board::Move(src, dst));
-	board[dst[0]][dst[1]] = tmp;
-	return false;;
+	Board::Move(board, dst, src);
+	board [dst[0]] [dst[1]] = tmp;
+
+	delete[] place;
+	return true;
 }

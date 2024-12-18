@@ -27,6 +27,9 @@ using std::string;
 void main()
 {
 	Board board(BOARD_STR, 1);
+	std::string src = "  ";
+	std::string dst = "  ";
+	char* return_code = new char[2];
 
 	srand(time_t(NULL));
 
@@ -84,12 +87,32 @@ RNBKQBNR\
 		// according the protocol. Ex: e2e4           (move e2 to e4)
 		
 		// YOUR CODE
-		strcpy_s(msgToGraphics, "YOUR CODE"); // msgToGraphics should contain the result of the operation
+
+		src[0] = msgFromGraphics[0];
+		src[1] = msgFromGraphics[1];
+
+		dst[0] = msgFromGraphics[2];
+		dst[1] = msgFromGraphics[3];
+
+		return_code[0] = (board.Is_Legal(src, dst)) + 48;
+		return_code[1] = 0;
+
+		switch (return_code[0])
+		{
+		case '0':
+		case '1':
+		case '8':
+			board.Move(src, dst);
+			break;
+		}
+
+
+		strcpy_s(msgToGraphics, return_code); // msgToGraphics should contain the result of the operation
 
 		/******* JUST FOR EREZ DEBUGGING ******/
-		int r = rand() % 10; // just for debugging......
-		msgToGraphics[0] = (char)(1 + '0');
-		msgToGraphics[1] = 0;
+		//int r = rand() % 10; // just for debugging......
+		//msgToGraphics[0] = (char)(1 + '0');
+		//msgToGraphics[1] = 0;
 		/******* JUST FOR EREZ DEBUGGING ******/
 
 
@@ -100,5 +123,6 @@ RNBKQBNR\
 		msgFromGraphics = p.getMessageFromGraphics();
 	}
 
+	delete[] return_code;
 	p.close();
 }
