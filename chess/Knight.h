@@ -4,7 +4,7 @@
 class Knight
 {
 public:
-	static short Is_legal_move(char** board, std::string src, std::string dst, bool isWhiteTurn);
+	static bool Is_legal_move(char** board, int* src, int* dst, bool isWhiteTurn);
 
 };
 
