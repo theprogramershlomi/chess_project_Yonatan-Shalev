@@ -11,6 +11,7 @@ public:
 	Board(char** board, bool isWhiteTurn);
 	Board(char* board, bool isWhiteTurn);
 	Board(std::string board, bool isWhiteTurn);
+	void Initialize_board();
 
 
 	void Move(std::string src, std::string dst);
