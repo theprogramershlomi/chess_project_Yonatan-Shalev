@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+
 class Board
 {
 private:
@@ -7,7 +9,7 @@ private:
 
 public:
 	void Move(std::string src, std::string dst);
-	short Is_legal(std::string src, std::string dst);
-	int* Convert_to_index(std::string pos);
+	short Is_Legal(std::string src, std::string dst);
+	int* Convert_To_Index(std::string pos);
 };
 

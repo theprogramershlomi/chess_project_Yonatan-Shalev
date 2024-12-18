@@ -1,9 +1,9 @@
 #pragma once
-#include "Piece.h"
+#include "Board.h"
 
-class King : public Piece
+class King
 {
-	static short Is_legat_move(Board board, std::string src, std::string dst, bool isWhiteTurn);
-	static bool Is_king_safe(Board board, int* src, int* dst, bool isWhite);
+	static short Is_legat_move(char** board, std::string src, std::string dst, bool isWhiteTurn);
+	static bool Is_king_safe(char** board, int* src, int* dst, bool isWhite);
 };
 
