@@ -37,6 +37,7 @@ void Board::Move(std::string src, std::string dst)
 	int* dst_index = Convert_To_Index(dst);
 
 	_board[dst_index[0]][dst_index[1]] = _board[src_index[0]][src_index[1]];
+	_board[src_index[0]][src_index[1]] = '#';
 	_isWhiteTurn = !_isWhiteTurn;
 
 	delete[] src_index;
@@ -46,6 +47,7 @@ void Board::Move(std::string src, std::string dst)
 void Board::Move(char** board, int* src, int* dst)
 {
 	board[dst[0]][dst[1]] = board[src[0]][src[1]];
+	board[src[0]][src[1]] = '#';
 }
 
 short Board::Is_Legal(std::string src, std::string dst)
@@ -71,14 +73,18 @@ short Board::Is_Legal(std::string src, std::string dst)
 	}
 
 	//checks if dst has same colored piece
-	if (!return_code && isalpha(dst_ch) && (islower(dst_ch) == !_isWhiteTurn))
+	if (!return_code && isalpha(dst_ch) && ((islower(dst_ch) && !_isWhiteTurn) || (!islower(dst_ch) && _isWhiteTurn)))
 	{
 		return_code = 3;
 	}
 
 	//checks if src has same colored piece
-	if (!return_code && !(isalpha(src_ch) && (islower(src_ch) == !_isWhiteTurn)))
+	if ((!return_code) && !(isalpha(src_ch) && ((islower(src_ch) && !_isWhiteTurn) || (!islower(src_ch) && _isWhiteTurn))))
 	{
+		std::cout << "isalpha = " << isalpha(src_ch) << std::endl;
+		std::cout << "islower = " << islower(src_ch) << std::endl;
+		std::cout << "isWhiteTurn = " << _isWhiteTurn << std::endl;
+		std::cout << "(islower == !isWhiteTurn) = " << (islower(src_ch) == !_isWhiteTurn) << std::endl;
 		// src doesn't have same colored piece
 		return_code = 2;
 	}
@@ -90,7 +96,7 @@ short Board::Is_Legal(std::string src, std::string dst)
 			return_code = 6;
 		}
 	}
-
+	/*
 	// checks if the move will create check on the king
 	if (!return_code && !King::Is_king_safe(_board, src_index, dst_index, _isWhiteTurn))
 	{
@@ -106,6 +112,7 @@ short Board::Is_Legal(std::string src, std::string dst)
 		// ok move
 		return_code = 1;
 	}
+	*/
 
 	if (!return_code && (dst_ch == 'k' || dst_ch == 'K'))
 	{
