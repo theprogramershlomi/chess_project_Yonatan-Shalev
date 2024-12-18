@@ -5,8 +5,19 @@ in order to read and write information from and to the Backend
 */
 
 #include "Pipe.h"
+#include "Board.h"
 #include <iostream>
 #include <thread>
+
+#define BOARD_STR "\
+rnbkqbnr\
+pppppppp\
+########\
+########\
+########\
+########\
+PPPPPPPP\
+RNBKQBNR"
 
 using std::cout;
 using std::endl;
@@ -15,6 +26,8 @@ using std::string;
 
 void main()
 {
+	Board board(BOARD_STR, 1);
+
 	srand(time_t(NULL));
 
 	

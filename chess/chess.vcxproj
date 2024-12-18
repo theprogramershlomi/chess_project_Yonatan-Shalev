@@ -132,7 +132,6 @@
     <ClInclude Include="King.h" />
     <ClInclude Include="Knight.h" />
     <ClInclude Include="Pawn.h" />
-    <ClInclude Include="Piece.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Queen.h" />
     <ClInclude Include="Rook.h" />
@@ -145,7 +144,6 @@
     <ClCompile Include="King.cpp" />
     <ClCompile Include="Knight.cpp" />
     <ClCompile Include="Pawn.cpp" />
-    <ClCompile Include="Piece.cpp" />
     <ClCompile Include="Queen.cpp" />
     <ClCompile Include="Rook.cpp" />
     <ClCompile Include="Source.cpp" />
