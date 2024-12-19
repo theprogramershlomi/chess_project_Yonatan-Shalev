@@ -96,11 +96,11 @@ short Board::Is_Legal(std::string src, std::string dst)
 			return_code = 6;
 		}
 	}
-	/*
+	
 	// checks if the move will create check on the king
 	if (!return_code && !King::Is_king_safe(_board, src_index, dst_index, _isWhiteTurn))
 	{
-		// move will create check no king.
+		// move will create check to king.
 		// illegal move.
 		return_code = 4;
 	}
@@ -112,7 +112,7 @@ short Board::Is_Legal(std::string src, std::string dst)
 		// ok move
 		return_code = 1;
 	}
-	*/
+	
 
 	if (!return_code && (dst_ch == 'k' || dst_ch == 'K'))
 	{
@@ -173,13 +173,13 @@ bool Board::Global_Is_Legal_Move(char** board, int* src_index, int* dst_index, b
 		}
 		break;
 	case 'k':
-		/*
+		
 		if (not King::Is_legal_move(board, src_index, dst_index, isWhiteTurn))
 		{
 			is_legal = false;
 		}
 		break;
-		*/
+		
 		break;
 
 	}

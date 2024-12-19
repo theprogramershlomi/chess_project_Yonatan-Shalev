@@ -26,6 +26,7 @@ using std::string;
 
 void main()
 {
+
 	Board board(BOARD_STR, 1);
 	std::string src = "  ";
 	std::string dst = "  ";

@@ -1,4 +1,7 @@
 #pragma once
+#define directions 4
+#define BORDERS 8
+
 #include "Board.h"
 
 class Bishop

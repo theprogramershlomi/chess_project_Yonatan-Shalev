@@ -1,5 +1,10 @@
 #pragma once
 #include "Board.h"
+#define directions 8
+
+
+
+
 
 class Knight
 {
