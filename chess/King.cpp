@@ -38,7 +38,7 @@ bool King::Is_king_safe(char** board, int* src, int* dst, bool isWhite)
 
 	for (row2 = 0; row2 < BORDERS; row2++) {
 		for (col2 = 0; col2 < BORDERS; col2++) {
-			if (isOpponentPiece(board[row2][col2], isWhite)  && board[row2][col2] != 'p' && board[row2][col2] != 'P') {
+			if (isOpponentPiece(board[row2][col2], isWhite)  ) {
 				place[0] = row2;
 				place[1] = col2;
 				if (Board::Global_Is_Legal_Move(board,place, kingPlace, !isWhite)) {
