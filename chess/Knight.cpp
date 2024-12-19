@@ -1,7 +1,7 @@
 #include "Knight.h"
 #define BORDERS 8
 
-bool Knight::Is_legal_move(char** board, int* src, int* dst, bool isWhiteTurn)
+bool Knight::Is_Legal_Move(char** board, int* src, int* dst, bool isWhiteTurn)
 {
     int directionsArr[][2] = { {1,-2} ,{2,-1} ,{1,2}, {-2,-1},
                               {-1,-2 } ,{2,1} ,{-1,2}, {-2,1} };

@@ -1,9 +1,9 @@
 #include "King.h"
-bool King::Is_legal_move(char** board, int* src, int* dst, bool isWhiteTurn)
+bool King::Is_Legal_Move(char** board, int* src, int* dst, bool isWhiteTurn)
 {
 	return (src[0] - dst[0] >= -1 && src[0] - dst[0] <= 1) && (src[1] - dst[1] >= -1 && src[1] - dst[1] <= 1);
 }
-bool King::isOpponentPiece(char piece, bool isWhite) {
+bool King::Is_Opponent_Piece(char piece, bool isWhite) {
 	return isalpha(piece) && ((isupper(piece) && !isWhite) || (islower(piece) && isWhite));
 }
 
@@ -40,13 +40,9 @@ bool King::Is_king_safe(char** board, int* src, int* dst, bool isWhite)
 
 	for (row2 = 0; row2 < BORDERS; row2++) {
 		for (col2 = 0; col2 < BORDERS; col2++) {
-			if (isOpponentPiece(board[row2][col2], isWhite)  ) {
+			if (Is_Opponent_Piece(board[row2][col2], isWhite)  ) {
 				place[0] = row2;
 				place[1] = col2;
-				if (place[0] == kingPlace[0] && place[1] == kingPlace[1])
-				{
-					continue;
-				}
 				if (Board::Global_Is_Legal_Move(board, place, kingPlace, !isWhite)) {
 					flag = false;
 					break;

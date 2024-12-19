@@ -1,6 +1,6 @@
 #include "Bishop.h"
 
-bool Bishop::Is_legal_move(char** board, int* src, int* dst, bool isWhiteTurn)
+bool Bishop::Is_Legal_Move(char** board, int* src, int* dst, bool isWhiteTurn)
 {
 	bool is_legal = false;
 	int directionsArr[][2] = {{1,-1} ,{1,1} ,{-1,1}, {-1,-1}};

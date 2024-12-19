@@ -2,7 +2,7 @@
 #include "Rook.h"
 #include "Bishop.h"
 
-bool Queen::Is_legal_move(char** board, int* src, int* dst, bool isWhiteTurn)
+bool Queen::Is_Legal_Move(char** board, int* src, int* dst, bool isWhiteTurn)
 {
-	return (Rook::Is_legal_move(board, src, dst, isWhiteTurn) || Bishop::Is_legal_move(board, src, dst, isWhiteTurn));
+	return (Rook::Is_Legal_Move(board, src, dst, isWhiteTurn) || Bishop::Is_Legal_Move(board, src, dst, isWhiteTurn));
 }

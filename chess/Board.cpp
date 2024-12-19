@@ -139,38 +139,38 @@ bool Board::Global_Is_Legal_Move(char** board, int* src_index, int* dst_index, b
 	switch (tolower(board [src_index[0]] [ src_index[1]]))
 	{
 	case 'p':
-		if (not Pawn::Is_legal_move(board, src_index, dst_index, isWhiteTurn))
+		if (not Pawn::Is_Legal_Move(board, src_index, dst_index, isWhiteTurn))
 		{
 			is_legal = false;
 		}
 		break;
 	case 'n':// n = knight because "king" took the 'k'
-		if (not Knight::Is_legal_move(board, src_index, dst_index, isWhiteTurn))
+		if (not Knight::Is_Legal_Move(board, src_index, dst_index, isWhiteTurn))
 		{
 			is_legal = false;
 		}
 		break;
 	case 'b':
-		if (not Bishop::Is_legal_move(board, src_index, dst_index, isWhiteTurn))
+		if (not Bishop::Is_Legal_Move(board, src_index, dst_index, isWhiteTurn))
 		{
 			is_legal = false;
 		}
 		break;
 	case 'r':
-		if (not Rook::Is_legal_move(board, src_index, dst_index, isWhiteTurn))
+		if (not Rook::Is_Legal_Move(board, src_index, dst_index, isWhiteTurn))
 		{
 			is_legal = false;
 		}
 		break;
 	case 'q':
-		if (not Queen::Is_legal_move(board, src_index, dst_index, isWhiteTurn))
+		if (not Queen::Is_Legal_Move(board, src_index, dst_index, isWhiteTurn))
 		{
 			is_legal = false;
 		}
 		break;
 	case 'k':
 		
-		if (not King::Is_legal_move(board, src_index, dst_index, isWhiteTurn))
+		if (not King::Is_Legal_Move(board, src_index, dst_index, isWhiteTurn))
 		{
 			is_legal = false;
 		}

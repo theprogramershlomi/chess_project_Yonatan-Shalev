@@ -1,7 +1,7 @@
 #include "Rook.h"
 #include <cmath>
 
-bool Rook::Is_legal_move(char** board, int* src, int* dst, bool isWhiteTurn)
+bool Rook::Is_Legal_Move(char** board, int* src, int* dst, bool isWhiteTurn)
 {
 	bool is_legal = false;
 	short neg = 1;

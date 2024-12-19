@@ -1,7 +1,7 @@
 #include "Pawn.h"
 #include <cmath>
 
-bool Pawn::Is_legal_move(char** board, int* src, int* dst, bool isWhiteTurn)
+bool Pawn::Is_Legal_Move(char** board, int* src, int* dst, bool isWhiteTurn)
 {
 	bool isLegal = false;
 
