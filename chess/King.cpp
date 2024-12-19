@@ -7,10 +7,7 @@ bool King::isOpponentPiece(char piece, bool isWhite) {
 	return (isupper(piece) && !isWhite) || (islower(piece) && isWhite) && isalpha(piece);
 }
 
-bool King::kingPlace(char** board, bool isWhite)
-{
-	return false;
-}
+
 
 bool King::Is_king_safe(char** board, int* src, int* dst, bool isWhite)
 {
