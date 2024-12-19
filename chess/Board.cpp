@@ -81,10 +81,6 @@ short Board::Is_Legal(std::string src, std::string dst)
 	//checks if src has same colored piece
 	if ((!return_code) && !(isalpha(src_ch) && ((islower(src_ch) && !_isWhiteTurn) || (!islower(src_ch) && _isWhiteTurn))))
 	{
-		std::cout << "isalpha = " << isalpha(src_ch) << std::endl;
-		std::cout << "islower = " << islower(src_ch) << std::endl;
-		std::cout << "isWhiteTurn = " << _isWhiteTurn << std::endl;
-		std::cout << "(islower == !isWhiteTurn) = " << (islower(src_ch) == !_isWhiteTurn) << std::endl;
 		// src doesn't have same colored piece
 		return_code = 2;
 	}
@@ -178,8 +174,6 @@ bool Board::Global_Is_Legal_Move(char** board, int* src_index, int* dst_index, b
 		{
 			is_legal = false;
 		}
-		break;
-		
 		break;
 
 	}

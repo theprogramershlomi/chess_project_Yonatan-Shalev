@@ -4,7 +4,7 @@ bool King::Is_legal_move(char** board, int* src, int* dst, bool isWhiteTurn)
 	return (src[0] - dst[0] >= -1 && src[0] - dst[0] <= 1) && (src[1] - dst[1] >= -1 && src[1] - dst[1] <= 1);
 }
 bool King::isOpponentPiece(char piece, bool isWhite) {
-	return (isupper(piece) && !isWhite) || (islower(piece) && isWhite) && isalpha(piece);
+	return isalpha(piece) && ((isupper(piece) && !isWhite) || (islower(piece) && isWhite));
 }
 
 
@@ -15,19 +15,21 @@ bool King::Is_king_safe(char** board, int* src, int* dst, bool isWhite)
 	char tmp = board[dst[0]][dst[1]];
 	Board::Move(board, src, dst);
 
-	int kingPlace[] = { 0,0 };
+	int kingPlace[] = { -1,-1 };
 	for (int i = 0; i < BORDERS; i++) {
 		for (int j = 0; j < BORDERS; j++) {
-			std::cout << board[i][j] << ',';
 
 			if ((board[i][j] == 'k' && !isWhite) || (board[i][j] == 'K' && isWhite)) {
 
 				kingPlace[0] = i;
 				kingPlace[1] = j;
-
+				break;
 			}
 		}
-		std::cout << std::endl;
+		if (kingPlace[0] != -1)
+		{
+			break;
+		}
 	}
 
 
@@ -41,10 +43,19 @@ bool King::Is_king_safe(char** board, int* src, int* dst, bool isWhite)
 			if (isOpponentPiece(board[row2][col2], isWhite)  ) {
 				place[0] = row2;
 				place[1] = col2;
-				if (Board::Global_Is_Legal_Move(board,place, kingPlace, !isWhite)) {
+				if (place[0] == kingPlace[0] && place[1] == kingPlace[1])
+				{
+					continue;
+				}
+				if (Board::Global_Is_Legal_Move(board, place, kingPlace, !isWhite)) {
 					flag = false;
+					break;
 				}
 			}
+		}
+		if (flag == false)
+		{
+			break;
 		}
 	}
 
