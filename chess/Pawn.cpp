@@ -16,7 +16,7 @@ bool Pawn::Is_Legal_Move(char** board, int* src, int* dst, bool isWhiteTurn)
 					// pawn is walking 1 square
 					isLegal = true;
 				}
-				else if (src[0] == 6 && src[0] - dst[0] == 2 && board[dst[0]][dst[1]] == '#')
+				else if (src[0] == 6 && src[0] - dst[0] == 2 && board[dst[0] + 1][dst[1]] == '#')
 				{
 					// pawn is walking 2 squares
 					isLegal = true;
@@ -40,7 +40,7 @@ bool Pawn::Is_Legal_Move(char** board, int* src, int* dst, bool isWhiteTurn)
 					// pawn is walking 1 square
 					isLegal = true;
 				}
-				else if (src[0] == 1 && dst[0] - src[0] == 2 && board[dst[0]][dst[1]] == '#')
+				else if (src[0] == 1 && dst[0] - src[0] == 2 && board[dst[0] - 1][dst[1]] == '#')
 				{
 					// pawn is walking 2 squares
 					isLegal = true;

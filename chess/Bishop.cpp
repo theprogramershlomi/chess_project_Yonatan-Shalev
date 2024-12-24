@@ -9,7 +9,7 @@ bool Bishop::Is_Legal_Move(char** board, int* src, int* dst, bool isWhiteTurn)
 		row = directionsArr[i][0]+src[0], col = directionsArr[i][1]+src[1];
 		while ((row < BORDERS && row >= 0) && (col < BORDERS && col >= 0)) {
 
-			if (board[row][col] == board[dst[0]][dst[1]])
+			if (row == dst[0] && col ==  dst[1])
 			{
 				is_legal = true;
 				break;
